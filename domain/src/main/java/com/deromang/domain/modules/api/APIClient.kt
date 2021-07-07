@@ -9,7 +9,7 @@ class APIClient {
 
     companion object {
 
-        private val BASE_URL = "http://api.football-data.org/v2/"
+        private val BASE_URL = "https://api.football-data.org/v2/"
 
         private fun getClient(): Retrofit {
 

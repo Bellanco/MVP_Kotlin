@@ -1,9 +1,7 @@
 <resources>
-    <string name="app_name">MVP Kotlin</string>
+    <string name="app_name">uApp</string>
     <string name="good_morning">Buenos días</string>
     <string name="my_name">Diego</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="error">Error app</string>
 </resources>
