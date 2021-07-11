@@ -4,8 +4,7 @@ package com.deromang.mvp_kotlin.ui.main
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.deromang.domain.data.Response
+import com.deromang.domain.data.ResponseModel
 import com.deromang.mvp_kotlin.R
 import com.deromang.mvp_kotlin.dependencies.modules.presentation.main.MainFragmentComponent
 import com.deromang.mvp_kotlin.dependencies.modules.presentation.main.MainFragmentModule
@@ -72,7 +71,7 @@ class MainFragment : BaseFragment(), MainFragmentView {
 
     }
 
-    override fun onShowLeaguesReady(list: Response?) {
+    override fun onShowLeaguesReady(list: ResponseModel?) {
 
         rvItems.layoutManager = GridLayoutManager(context, 2)
 

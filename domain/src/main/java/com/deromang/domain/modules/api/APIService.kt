@@ -1,13 +1,12 @@
 package com.deromang.domain.modules.api
 
-import com.deromang.domain.data.BaseResponseModel
-import com.deromang.domain.data.Response
+import com.deromang.domain.data.ResponseModel
 import retrofit2.Call
 import retrofit2.http.GET
 
 interface APIService {
 
     @GET("competitions")
-    fun showCompetitions(): Call<Response>
+    fun showCompetitions(): Call<ResponseModel>
 
 }

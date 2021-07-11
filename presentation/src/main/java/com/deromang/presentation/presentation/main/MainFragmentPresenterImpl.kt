@@ -1,5 +1,6 @@
 package com.deromang.presentation.presentation.main
 
+import com.deromang.domain.data.ResponseModel
 import com.deromang.domain.modules.api.APIClient
 import com.deromang.domain.modules.api.APIService
 import com.deromang.presentation.navigation.Navigator
@@ -26,17 +27,17 @@ class MainFragmentPresenterImpl @Inject constructor(private var navigator: Navig
 
     override fun showLeagues() {
         mApiService?.showCompetitions()
-            ?.enqueue(object : Callback<com.deromang.domain.data.Response?> {
+            ?.enqueue(object : Callback<ResponseModel?> {
                 override fun onFailure(
-                    call: Call<com.deromang.domain.data.Response?>,
+                    call: Call<ResponseModel?>,
                     t: Throwable
                 ) {
                     mView.showError()
                 }
 
                 override fun onResponse(
-                    call: Call<com.deromang.domain.data.Response?>,
-                    response: Response<com.deromang.domain.data.Response?>
+                    call: Call<ResponseModel?>,
+                    response: Response<ResponseModel?>
                 ) {
                     val list = response.body()
                     mView.onShowLeaguesReady(list)
