@@ -6,7 +6,7 @@ import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
 
-data class Response(
+data class ResponseModel(
 
     @SerializedName("count") val count: Int,
     @SerializedName("competitions") val competitions: List<Competitions>

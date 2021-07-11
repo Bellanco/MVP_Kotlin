@@ -19,7 +19,7 @@ class NavigatorImpl(private var activity: AppCompatActivity) : Navigator {
     }
 
     override fun onBackPressed() {
-        activity.getSupportFragmentManager().popBackStackImmediate()
+        activity.supportFragmentManager.popBackStackImmediate()
     }
 
     override fun goToMainFragment() {
