@@ -4,4 +4,6 @@
     <string name="my_name">Diego</string>
 
     <string name="error">Error app</string>
+    <string name="label_popular">Popular</string>
+    <string name="label_favourite">Favoritos</string>
 </resources>

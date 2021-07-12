@@ -4,12 +4,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.deromang.domain.data.Competitions
+import com.deromang.domain.data.Result
 import com.deromang.mvp_kotlin.R
+import com.deromang.mvp_kotlin.ui.utils.loadImageFromUrl
 import kotlinx.android.synthetic.main.main_list_item.view.*
 
-class MainAdapter(private val items: List<Competitions>?, private val context: Context?) :
+class MainAdapter(private val items: List<Result>?, private val context: Context?) :
     RecyclerView.Adapter<ViewHolder>() {
 
     // Gets the number of items in the list
@@ -30,11 +32,17 @@ class MainAdapter(private val items: List<Competitions>?, private val context: C
 
     // Binds each item in the ArrayList to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvItem.text = items?.get(position)?.name ?: ""
+        items?.get(position)?.let { result ->
+            holder.tvItem.text = result.title
+            holder.tvDescription.text = result.overview
+            holder.tvPopularity.text = result.popularity.toString()
+        }
     }
 }
 
 class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     // Holds the TextView that will add each animal to
-    val tvItem = view.tvItem
+    val tvItem: TextView = view.tvItem
+    val tvDescription: TextView = view.tvDescription
+    val tvPopularity: TextView = view.tvPopularity
 }

@@ -4,5 +4,6 @@ import com.deromang.presentation.presentation.base.BasePresenter
 
 interface MainFragmentPresenter : BasePresenter<MainFragmentView> {
     fun getAPIService()
-    fun showLeagues()
+    fun showModel()
+    fun searchModel(text: String)
 }

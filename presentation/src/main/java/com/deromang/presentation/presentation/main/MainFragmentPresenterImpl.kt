@@ -5,6 +5,7 @@ import com.deromang.domain.modules.api.APIClient
 import com.deromang.domain.modules.api.APIService
 import com.deromang.presentation.navigation.Navigator
 import com.deromang.presentation.presentation.base.BasePresenterImpl
+import com.deromang.presentation.presentation.constants.getAPIKey
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,8 +26,8 @@ class MainFragmentPresenterImpl @Inject constructor(private var navigator: Navig
         mApiService = APIClient.getAPIService()
     }
 
-    override fun showLeagues() {
-        mApiService?.showCompetitions()
+    override fun showModel() {
+        mApiService?.showModel(getAPIKey())
             ?.enqueue(object : Callback<ResponseModel?> {
                 override fun onFailure(
                     call: Call<ResponseModel?>,
@@ -40,7 +41,27 @@ class MainFragmentPresenterImpl @Inject constructor(private var navigator: Navig
                     response: Response<ResponseModel?>
                 ) {
                     val list = response.body()
-                    mView.onShowLeaguesReady(list)
+                    mView.onShowModelReady(list)
+                }
+            })
+    }
+
+    override fun searchModel(text: String) {
+        mApiService?.searchModel(getAPIKey(), text)
+            ?.enqueue(object : Callback<ResponseModel?> {
+                override fun onFailure(
+                    call: Call<ResponseModel?>,
+                    t: Throwable
+                ) {
+                    mView.showError()
+                }
+
+                override fun onResponse(
+                    call: Call<ResponseModel?>,
+                    response: Response<ResponseModel?>
+                ) {
+                    val list = response.body()
+                    mView.onShowModelReady(list)
                 }
             })
     }
