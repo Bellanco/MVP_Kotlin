@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.deromang.mvp_kotlin.R
 import com.deromang.mvp_kotlin.ui.main.MainFragment
+import com.deromang.mvp_kotlin.ui.main.SecondFragment
 
 private val TAB_TITLES = arrayOf(
     R.string.label_popular,
@@ -23,7 +24,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
         return if (position == 0)
             MainFragment.newInstance()
         else
-            MainFragment.newInstance()
+            SecondFragment.newInstance()
 
     }
 

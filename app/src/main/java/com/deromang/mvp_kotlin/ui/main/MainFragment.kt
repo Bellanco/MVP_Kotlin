@@ -7,9 +7,12 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.deromang.domain.data.ResponseModel
+import com.deromang.domain.data.ResultModel
 import com.deromang.mvp_kotlin.R
+import com.deromang.mvp_kotlin.dependencies.app.preferences.Preferences
 import com.deromang.mvp_kotlin.dependencies.modules.presentation.main.MainFragmentComponent
 import com.deromang.mvp_kotlin.dependencies.modules.presentation.main.MainFragmentModule
+import com.deromang.mvp_kotlin.ui.base.BaseApplication
 import com.deromang.mvp_kotlin.ui.base.BaseFragment
 import com.deromang.mvp_kotlin.ui.main.adapter.MainAdapter
 import com.deromang.mvp_kotlin.ui.utils.toast
@@ -22,6 +25,8 @@ import javax.inject.Inject
  * A simple [Fragment] subclass.
  */
 class MainFragment : BaseFragment(), MainFragmentView {
+
+    private lateinit var preferences: Preferences
 
     private var component: MainFragmentComponent? = null
 
@@ -54,6 +59,11 @@ class MainFragment : BaseFragment(), MainFragmentView {
 
         presenter.setView(this)
 
+        (activity?.application as BaseApplication).preferences?.let { preferencesApp ->
+            preferences = preferencesApp
+        }
+
+
         setupView()
     }
 
@@ -63,14 +73,15 @@ class MainFragment : BaseFragment(), MainFragmentView {
 
         presenter.showModel()
 
-        svSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        svSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 newText?.let { text ->
-                    searchModel(text)
+                    if (newText.isNotBlank())
+                        searchModel(text)
                 }
                 Log.e("queryText1", newText!!);
                 return false;
@@ -87,7 +98,17 @@ class MainFragment : BaseFragment(), MainFragmentView {
 
         rvItems.layoutManager = GridLayoutManager(context, 2)
 
-        rvItems.adapter = MainAdapter(list?.results, context)
+        rvItems.adapter = MainAdapter(list?.results, context, object : MainAdapter.OnClickListener {
+            override fun onClick(model: ResultModel) {
+                saveResult(model)
+            }
+        })
+    }
+
+    private fun saveResult(model: ResultModel) {
+        val results = preferences.results
+        results.add(model)
+        preferences.results = results
     }
 
     override fun showError() {

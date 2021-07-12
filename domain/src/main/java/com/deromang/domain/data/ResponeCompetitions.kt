@@ -3,12 +3,12 @@ package com.deromang.domain.data
 
 data class ResponseModel(
     val page: Int,
-    val results: List<Result>,
+    val results: List<ResultModel>,
     val total_pages: Int,
     val total_results: Int
 )
 
-data class Result(
+data class ResultModel(
     val adult: Boolean,
     val backdrop_path: String,
     val genre_ids: List<Int>,

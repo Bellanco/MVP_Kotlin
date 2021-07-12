@@ -4,14 +4,18 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.deromang.domain.data.Result
+import com.deromang.domain.data.ResultModel
 import com.deromang.mvp_kotlin.R
-import com.deromang.mvp_kotlin.ui.utils.loadImageFromUrl
 import kotlinx.android.synthetic.main.main_list_item.view.*
 
-class MainAdapter(private val items: List<Result>?, private val context: Context?) :
+class MainAdapter(
+    private val items: List<ResultModel>?,
+    private val context: Context?,
+    val listener: OnClickListener
+) :
     RecyclerView.Adapter<ViewHolder>() {
 
     // Gets the number of items in the list
@@ -36,7 +40,14 @@ class MainAdapter(private val items: List<Result>?, private val context: Context
             holder.tvItem.text = result.title
             holder.tvDescription.text = result.overview
             holder.tvPopularity.text = result.popularity.toString()
+            holder.ivFavourite.setOnClickListener {
+                listener.onClick(result)
+            }
         }
+    }
+
+    interface OnClickListener {
+        fun onClick(model: ResultModel)
     }
 }
 
@@ -45,4 +56,6 @@ class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val tvItem: TextView = view.tvItem
     val tvDescription: TextView = view.tvDescription
     val tvPopularity: TextView = view.tvPopularity
+    val ivFavourite: ImageView = view.ivFavourite
 }
+
